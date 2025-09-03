@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .prose-custom {
+    @apply prose prose-gray max-w-none;
+  }
+  
+  .prose-custom p {
+    @apply text-gray-600 leading-relaxed;
+  }
+  
+  .prose-custom h1, .prose-custom h2, .prose-custom h3 {
+    @apply text-gray-900 font-semibold;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

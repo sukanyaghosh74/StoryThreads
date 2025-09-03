@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  image        String?
+  createdAt    DateTime @default(now())
+  fragments    Fragment[]
+  reactions    Reaction[]
+}
+
+model Fragment {
+  id           String   @id @default(cuid())
+  userId       String?
+  user         User?    @relation(fields: [userId], references: [id])
+  body         String
+  anonymous    Boolean  @default(true)
+  embedding    String?  // JSON string for SQLite compatibility
+  threadId     String?
+  thread       Thread?  @relation(fields: [threadId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Thread {
+  id           String   @id @default(cuid())
+  title        String
+  synopsis     String?  // 1–2 sentence summary (generated)
+  centroid    String?  // JSON string for SQLite compatibility
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  fragments    Fragment[]
+}
+
+model Reaction {
+  id           String   @id @default(cuid())
+  userId       String
+  fragmentId   String
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id])
+  fragment     Fragment @relation(fields: [fragmentId], references: [id])
+  @@unique([userId, fragmentId])
+}
+
+model Report {
+  id           String   @id @default(cuid())
+  fragmentId   String
+  reason       String
+  createdAt    DateTime @default(now())
+}
