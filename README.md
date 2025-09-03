@@ -34,7 +34,7 @@ StoryThreads is a gentle, intimate web application where users share honest stor
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/sukanyaghosh74/StoryThreads.git
    cd storythreads
    ```
 
@@ -307,3 +307,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **StoryThreads** - Where personal stories find their threads of connection.
+
